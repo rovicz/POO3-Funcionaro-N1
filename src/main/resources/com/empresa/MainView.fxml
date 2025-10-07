@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.empresa.controller.FuncionarioController"
+      spacing="10" alignment="TOP_CENTER" style="-fx-padding: 10;">
+
+    <GridPane hgap="10" vgap="5" alignment="CENTER">
+        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+        <Label text="Matrícula:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="matriculaField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Nome Completo:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="nomeField" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="250"/>
+
+        <Label text="CPF:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="cpfField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Data de Nascimento:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="dataNascimentoPicker" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Cargo:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="cargoField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Salário:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="salarioField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+        <Label text="Data de Contratação:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="dataContratacaoPicker" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+        <Label text="Logradouro:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+        <TextField fx:id="logradouroField" GridPane.rowIndex="0" GridPane.columnIndex="3" prefWidth="250"/>
+
+        <Label text="Número:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+        <TextField fx:id="numeroField" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+        <Label text="Complemento:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+        <TextField fx:id="complementoField" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+        <Label text="Bairro:" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+        <TextField fx:id="bairroField" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+        <Label text="Cidade:" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+        <TextField fx:id="cidadeField" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+
+        <Label text="Estado:" GridPane.rowIndex="5" GridPane.columnIndex="2"/>
+        <TextField fx:id="estadoField" GridPane.rowIndex="5" GridPane.columnIndex="3"/>
+
+        <Label text="CEP:" GridPane.rowIndex="6" GridPane.columnIndex="2"/>
+        <TextField fx:id="cepField" GridPane.rowIndex="6" GridPane.columnIndex="3"/>
+
+        <Button text="Cadastrar" onAction="#handleCadastrar" GridPane.rowIndex="7" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
+    </GridPane>
+
+    <Separator/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Consultar por Matrícula:"/>
+        <TextField fx:id="consultaMatriculaField"/>
+        <Button text="Consultar" onAction="#handleConsultar"/>
+    </HBox>
+
+    <TableView fx:id="funcionarioTable" prefHeight="200">
+        <columns>
+            <TableColumn fx:id="matriculaColumn" text="Matrícula" prefWidth="100"/>
+            <TableColumn fx:id="nomeColumn" text="Nome" prefWidth="400"/>
+            <TableColumn fx:id="cargoColumn" text="Cargo" prefWidth="200"/>
+        </columns>
+    </TableView>
+
+    <Button text="Excluir Selecionado" onAction="#handleExcluir" style="-fx-background-color: #ff6666;"/>
+
+</VBox>
