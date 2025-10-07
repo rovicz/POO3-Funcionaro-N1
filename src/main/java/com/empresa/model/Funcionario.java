@@ -44,6 +44,20 @@ public class Funcionario {
 
     @Override
     public String toString() {
-        return String.join(";", matricula, nome, cpf, dataNascimento.toString(), cargo, salario.toString(), dataContratacao.toString(), endereco.toString());
+        String dataNascimentoStr = (dataNascimento != null) ? dataNascimento.toString() : "";
+        String salarioStr = (salario != null) ? salario.toString() : "";
+        String dataContratacaoStr = (dataContratacao != null) ? dataContratacao.toString() : "";
+        String enderecoStr = (endereco != null) ? endereco.toString() : "";
+
+        return String.join(";",
+                matricula,
+                nome,
+                cpf,
+                dataNascimentoStr,
+                cargo,
+                salarioStr,
+                dataContratacaoStr,
+                enderecoStr
+        );
     }
 }

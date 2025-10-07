@@ -11,8 +11,11 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("MainView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/empresa/MainView.fxml"));
         Scene scene = new Scene(root);
+
+        scene.getStylesheets().add(getClass().getResource("/css/dark-theme.css").toExternalForm());
+
         stage.setTitle("Gerenciador de Funcionários");
         stage.setScene(scene);
         stage.show();
