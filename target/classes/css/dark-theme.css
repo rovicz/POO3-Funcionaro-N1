@@ -1,82 +1,74 @@
+/* --- Estilos Base --- */
 .root {
-    -fx-background-color: #2D2D2D;
-    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #0f172a; /* Cor de fundo principal (cinza-azulado escuro) */
+    -fx-font-family: "Inter", sans-serif; /* Fonte moderna e limpa */
+    -fx-font-size: 14px;
 }
 
+/* --- Tipografia --- */
 .label {
-    -fx-text-fill: #E0E0E0;
-    -fx-font-size: 13px;
+    -fx-text-fill: #cbd5e1; /* Cor de texto padrão (cinza claro) */
 }
 
-.text-field, .date-picker {
-    -fx-background-color: #3C3C3C;
-    -fx-text-fill: #F5F5F5;
-    -fx-border-color: #555555;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
-    -fx-prompt-text-fill: #9E9E9E;
-}
-
-.button {
-    -fx-background-color: #4F4F4F;
-    -fx-text-fill: #FFFFFF;
+.header-title {
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-background-radius: 4;
-    -fx-border-radius: 4;
+    -fx-text-fill: #f8fafc; /* Branco suave */
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e2e8f0; /* Cinza mais claro */
+    -fx-padding: 0 0 5 0;
+    -fx-border-color: transparent transparent #334155 transparent; /* Linha sutil abaixo do título */
+    -fx-border-width: 0 0 1 0;
+}
+
+/* --- Controles de Input (Campos de Texto, Datas) --- */
+.text-field, .date-picker .text-field {
+    -fx-background-color: #1e293b; /* Fundo do campo (mais escuro que o principal) */
+    -fx-text-fill: #f1f5f9; /* Cor do texto digitado */
+    -fx-border-color: #334155; /* Borda sutil */
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 12px;
+    -fx-prompt-text-fill: #64748b; /* Cor do texto de dica (promptText) */
+}
+
+.text-field:focused, .date-picker .text-field:focused {
+    -fx-border-color: #38bdf8; /* Borda azul ao focar */
+    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.4), 3, 0, 0, 0); /* Sombra sutil ao focar */
+}
+
+/* --- Botões --- */
+.button {
+    -fx-background-radius: 6px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 1, 1);
 }
 
 .button:hover {
-    -fx-background-color: #626262;
+    -fx-opacity: 0.9;
 }
 
-.button:pressed {
-    -fx-background-color: #707070;
+/* Botão Primário (Cadastrar) */
+.button-primary {
+    -fx-background-color: #2563eb; /* Azul */
+    -fx-text-fill: #f8fafc;
 }
 
-.table-view {
-    -fx-background-color: #3C3C3C;
-    -fx-border-color: #555555;
-    -fx-background-radius: 4;
-    -fx-border-radius: 4;
+.button-primary:hover {
+    -fx-background-color: #1d4ed8;
 }
 
-.table-view .column-header-background {
-    -fx-background-color: #333333;
+/* Botão Secundário (Consultar) */
+.button-secondary {
+    -fx-background-color: #334155; /* Cinza */
+    -fx-text-fill: #cbd5e1;
 }
 
-.table-view .column-header, .table-view .filler {
-    -fx-background-color: transparent;
-    -fx-size: 35;
-    -fx-border-color: transparent #555555 transparent transparent;
-    -fx-border-width: 0 1 0 0;
-}
-
-.table-view .column-header .label {
-    -fx-text-fill: #E0E0E0;
-    -fx-font-weight: bold;
-}
-
-.table-row-cell {
-    -fx-background-color: #3C3C3C;
-    -fx-border-color: transparent;
-    -fx-table-cell-border-color: transparent;
-}
-
-.table-cell {
-    -fx-text-fill: #F5F5F5;
-    -fx-border-color: transparent #555555 transparent transparent;
-    -fx-border-width: 0 1 0 0;
-}
-
-.table-row-cell:hover {
-    -fx-background-color: #4A4A4A;
-}
-
-.table-row-cell:selected {
-    -fx-background-color: #0078D7;
-}
-
-.table-row-cell:selected .table-cell {
-    -fx-text-fill: #FFFFFF;
-}
+.button-secondary:hover {
+    -fx-background

@@ -14,7 +14,7 @@ public class MainApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/com/empresa/MainView.fxml"));
         Scene scene = new Scene(root);
 
-        scene.getStylesheets().add(getClass().getResource("/css/dark-theme.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
 
         stage.setTitle("Gerenciador de Funcionários");
         stage.setScene(scene);
