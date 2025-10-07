@@ -23,13 +23,7 @@ Versão: 17 ou superior
 
 É crucial que a versão 17 seja usada, pois o projeto foi configurado e testado com ela.
 
-🧱 Apache Maven
-
-Versão: 3.6 ou superior
-
-O Maven geralmente já vem integrado em IDEs como IntelliJ e Eclipse, mas pode ser instalado separadamente.
-
-💻 IDE (opcional, mas recomendado)
+💻 IDE
 
 IntelliJ IDEA, Eclipse ou Visual Studio Code (com extensões para Java)
 
@@ -58,3 +52,4 @@ Error: JavaFX runtime components are missing
 
 
 A forma correta (e mais simples) é sempre executar via mvn javafx:run.
+
