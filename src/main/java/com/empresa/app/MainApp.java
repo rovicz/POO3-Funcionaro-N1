@@ -1,4 +1,4 @@
-package com.empresa;
+package com.empresa.app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -33,7 +33,6 @@ public class CsvUtil {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(";", -1);
-                // Matrícula, Nome, CPF, DataNasc, Cargo, Salario, DataContrat, Logradouro, Num, Compl, Bairro, Cidade, Estado, CEP
                 Endereco endereco = new Endereco(dados[7], dados[8], dados[9], dados[10], dados[11], dados[12], dados[13]);
                 Funcionario funcionario = new Funcionario(
                         dados[0], dados[1], dados[2], LocalDate.parse(dados[3]),
