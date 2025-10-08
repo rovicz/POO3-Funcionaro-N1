@@ -1,7 +1,7 @@
 .root {
     -fx-background-color: #0A0A0A;
     -fx-font-family: "Inter", sans-serif;
-    -fx-font-size: 14px;
+    -fx-font-size: 13px; /* Reduzido de 14px */
 }
 
 .label {
@@ -9,13 +9,13 @@
 }
 
 .header-title {
-    -fx-font-size: 24px;
+    -fx-font-size: 22px; /* Reduzido de 24px */
     -fx-font-weight: bold;
     -fx-text-fill: #FAFAFA;
 }
 
 .section-title {
-    -fx-font-size: 16px;
+    -fx-font-size: 15px; /* Reduzido de 16px */
     -fx-font-weight: bold;
     -fx-text-fill: #E5E5E5;
     -fx-padding: 0 0 5 0;
@@ -28,9 +28,9 @@
     -fx-text-fill: #FAFAFA;
     -fx-border-color: #272727;
     -fx-border-width: 1.5px;
-    -fx-border-radius: 6px;
-    -fx-background-radius: 6px;
-    -fx-padding: 8px 12px;
+    -fx-border-radius: 5px; /* Levemente reduzido */
+    -fx-background-radius: 5px; /* Levemente reduzido */
+    -fx-padding: 6px 10px; /* Reduzido de 8px 12px */
     -fx-prompt-text-fill: #A1A1A1;
 }
 
@@ -39,9 +39,9 @@
 }
 
 .button {
-    -fx-background-radius: 6px;
+    -fx-background-radius: 5px; /* Levemente reduzido */
     -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
+    -fx-padding: 8px 16px; /* Reduzido de 10px 20px */
     -fx-cursor: hand;
     -fx-border-width: 1.5px;
 }
@@ -87,7 +87,7 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent #272727 transparent transparent;
     -fx-border-width: 0 1.5px 0 0;
-    -fx-padding: 12px;
+    -fx-padding: 10px; /* Reduzido */
 }
 
 .table-view .column-header .label {
@@ -97,7 +97,7 @@
 
 .table-view .table-cell {
     -fx-border-color: transparent;
-    -fx-padding: 12px;
+    -fx-padding: 10px; /* Reduzido */
     -fx-text-fill: #A1A1A1;
 }
 
@@ -122,4 +122,78 @@
 .separator .line {
     -fx-border-color: #272727;
     -fx-border-width: 1 0 0 0;
+}
+
+/* === NOVOS ESTILOS PARA CORRIGIR CORES === */
+
+/* Estilo do Date Picker Popup */
+.date-picker-popup {
+    -fx-background-color: #1C1C1C;
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+}
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #1C1C1C;
+}
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: #FAFAFA;
+}
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: #A1A1A1;
+}
+.date-picker-popup .day-cell {
+    -fx-text-fill: #A1A1A1;
+}
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #272727;
+}
+.date-picker-popup .day-cell.selected {
+    -fx-background-color: #FAFAFA;
+    -fx-text-fill: #0A0A0A;
+}
+.date-picker-popup .day-cell.today {
+    -fx-border-color: #A1A1A1;
+    -fx-border-width: 1px;
+}
+
+/* Estilo da Barra de Rolagem (ScrollPane) */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-pane .corner {
+    -fx-background-color: #0A0A0A;
+}
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: #0A0A0A;
+}
+.scroll-bar .thumb {
+    -fx-background-color: #272727;
+    -fx-background-radius: 8px;
+}
+.scroll-bar .thumb:hover {
+    -fx-background-color: #333333;
+}
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.scroll-bar .track {
+    -fx-background-color: #0A0A0A;
+}
+
+.window-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #A1A1A1;
+    -fx-font-size: 14px;
+    -fx-padding: 0 8px;
+}
+
+.window-button:hover {
+    -fx-background-color: #272727;
+}
+
+.window-button-close:hover {
+    -fx-background-color: #E81123; /* Cor vermelha ao passar o mouse */
+    -fx-text-fill: #FFFFFF;
 }

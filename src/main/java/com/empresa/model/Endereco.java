@@ -1,6 +1,9 @@
 package com.empresa.model;
 
+import java.util.UUID; // Import necessário
+
 public class Endereco {
+    private String id; // Novo campo para o ID
     private String logradouro;
     private String numero;
     private String complemento;
@@ -10,6 +13,7 @@ public class Endereco {
     private String cep;
 
     public Endereco(String logradouro, String numero, String complemento, String bairro, String cidade, String estado, String cep) {
+        this.id = UUID.randomUUID().toString();
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
@@ -19,7 +23,21 @@ public class Endereco {
         this.cep = cep;
     }
 
-    // Getters e Setters
+    public Endereco(String id, String logradouro, String numero, String complemento, String bairro, String cidade, String estado, String cep) {
+        this.id = id;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cep = cep;
+    }
+
+    public String getId() { // Getter para o ID
+        return id;
+    }
+
     public String getLogradouro() { return logradouro; }
     public void setLogradouro(String logradouro) { this.logradouro = logradouro; }
     public String getNumero() { return numero; }
@@ -34,9 +52,4 @@ public class Endereco {
     public void setEstado(String estado) { this.estado = estado; }
     public String getCep() { return cep; }
     public void setCep(String cep) { this.cep = cep; }
-
-    @Override
-    public String toString() {
-        return String.join(";", logradouro, numero, complemento, bairro, cidade, estado, cep);
-    }
 }

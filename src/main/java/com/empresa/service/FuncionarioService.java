@@ -1,22 +1,30 @@
 package com.empresa.service;
 
+import com.empresa.model.Endereco;
 import com.empresa.model.Funcionario;
 import com.empresa.util.CsvUtil;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class FuncionarioService {
 
-    private final String ARQUIVO_CSV = "funcionarios.csv";
+    private final String ARQUIVO_FUNCIONARIOS = "funcionarios.csv";
+    private final String ARQUIVO_ENDERECOS = "enderecos.csv";
     private List<Funcionario> funcionarios;
 
     public FuncionarioService() {
         try {
-            this.funcionarios = CsvUtil.carregarFuncionarios(ARQUIVO_CSV);
+            // Passo 1: Carregar todos os endereços em um mapa para acesso rápido
+            Map<String, Endereco> mapaEnderecos = CsvUtil.carregarEnderecos(ARQUIVO_ENDERECOS);
+            // Passo 2: Carregar os funcionários e usar o mapa para linkar os endereços
+            this.funcionarios = CsvUtil.carregarFuncionarios(ARQUIVO_FUNCIONARIOS, mapaEnderecos);
         } catch (IOException e) {
-            System.err.println("Erro ao carregar o arquivo CSV: " + e.getMessage());
+            System.err.println("Erro ao carregar os arquivos CSV: " + e.getMessage());
             this.funcionarios = new ArrayList<>();
         }
     }
@@ -48,6 +56,12 @@ public class FuncionarioService {
     }
 
     private void salvarDados() throws IOException {
-        CsvUtil.salvarFuncionarios(ARQUIVO_CSV, funcionarios);
+        List<Endereco> todosOsEnderecos = this.funcionarios.stream()
+                .map(Funcionario::getEndereco)
+                .distinct()
+                .collect(Collectors.toList());
+
+        CsvUtil.salvarEnderecos(ARQUIVO_ENDERECOS, todosOsEnderecos);
+        CsvUtil.salvarFuncionarios(ARQUIVO_FUNCIONARIOS, this.funcionarios);
     }
 }

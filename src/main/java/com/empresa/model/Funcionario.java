@@ -24,7 +24,6 @@ public class Funcionario {
         this.endereco = endereco;
     }
 
-    // Getters e Setters
     public String getMatricula() { return matricula; }
     public void setMatricula(String matricula) { this.matricula = matricula; }
     public String getNome() { return nome; }
@@ -41,23 +40,4 @@ public class Funcionario {
     public void setDataContratacao(LocalDate dataContratacao) { this.dataContratacao = dataContratacao; }
     public Endereco getEndereco() { return endereco; }
     public void setEndereco(Endereco endereco) { this.endereco = endereco; }
-
-    @Override
-    public String toString() {
-        String dataNascimentoStr = (dataNascimento != null) ? dataNascimento.toString() : "";
-        String salarioStr = (salario != null) ? salario.toString() : "";
-        String dataContratacaoStr = (dataContratacao != null) ? dataContratacao.toString() : "";
-        String enderecoStr = (endereco != null) ? endereco.toString() : "";
-
-        return String.join(";",
-                matricula,
-                nome,
-                cpf,
-                dataNascimentoStr,
-                cargo,
-                salarioStr,
-                dataContratacaoStr,
-                enderecoStr
-        );
-    }
 }

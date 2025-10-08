@@ -2,104 +2,105 @@ package com.empresa.util;
 
 import com.empresa.model.Endereco;
 import com.empresa.model.Funcionario;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CsvUtil {
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
-    public static void salvarFuncionarios(String caminhoArquivo, List<Funcionario> funcionarios) throws IOException {
-        try (BufferedWriter writer = Files.newBufferedWriter(
-                Paths.get(caminhoArquivo),
-                StandardOpenOption.CREATE,
-                StandardOpenOption.TRUNCATE_EXISTING
-        )) {
-            for (Funcionario f : funcionarios) {
-                writer.write(f.toString());
-                writer.newLine();
+    public static Map<String, Endereco> carregarEnderecos(String arquivoEnderecos) throws IOException {
+        List<Endereco> enderecos = new ArrayList<>();
+        File file = new File(arquivoEnderecos);
+        if (!file.exists()) {
+            return Map.of();
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(";", -1);
+                if (values.length == 8) {
+                    enderecos.add(new Endereco(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]));
+                }
             }
         }
+        return enderecos.stream().collect(Collectors.toMap(Endereco::getId, e -> e));
     }
 
-    public static List<Funcionario> carregarFuncionarios(String caminhoArquivo) throws IOException {
+    public static List<Funcionario> carregarFuncionarios(String arquivoFuncionarios, Map<String, Endereco> mapaEnderecos) throws IOException {
         List<Funcionario> funcionarios = new ArrayList<>();
-
-        if (Files.notExists(Paths.get(caminhoArquivo))) {
+        File file = new File(arquivoFuncionarios);
+        if (!file.exists()) {
             return funcionarios;
         }
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            br.readLine();
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(";", -1);
+                if (values.length == 8) {
+                    String enderecoId = values[7];
+                    Endereco enderecoDoFuncionario = mapaEnderecos.get(enderecoId);
 
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(caminhoArquivo))) {
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                if (linha.trim().isEmpty()) continue; // ignora linhas vazias
+                    if (enderecoDoFuncionario != null) {
+                        String dataNascStr = values[3];
+                        String dataContratacaoStr = values[6];
 
-                String[] dados = linha.split(";", -1);
-                if (dados.length < 14) {
-                    System.err.println("Linha inválida (colunas insuficientes): " + linha);
-                    continue;
+                        LocalDate dataNascimento = dataNascStr.isEmpty() ? null : LocalDate.parse(dataNascStr, DATE_FORMATTER);
+                        LocalDate dataContratacao = dataContratacaoStr.isEmpty() ? null : LocalDate.parse(dataContratacaoStr, DATE_FORMATTER);
+
+                        Funcionario f = new Funcionario(
+                                values[0], values[1], values[2], dataNascimento,
+                                values[4], new BigDecimal(values[5]), dataContratacao,
+                                enderecoDoFuncionario
+                        );
+                        funcionarios.add(f);
+                    }
                 }
-
-                LocalDate dataNascimento = parseData(dados[3]);
-                LocalDate dataAdmissao = parseData(dados[6]);
-                BigDecimal salario = parseBigDecimal(dados[5]);
-
-                Endereco endereco = new Endereco(
-                        dados[7], dados[8], dados[9], dados[10],
-                        dados[11], dados[12], dados[13]
-                );
-
-                Funcionario funcionario = new Funcionario(
-                        dados[0],
-                        dados[1],
-                        dados[2],
-                        dataNascimento,
-                        dados[4],
-                        salario,
-                        dataAdmissao,
-                        endereco
-                );
-
-                funcionarios.add(funcionario);
             }
         }
-
         return funcionarios;
     }
 
-
-    private static LocalDate parseData(String valor) {
-        if (valor == null || valor.trim().isEmpty()) {
-            return null;
-        }
-        try {
-            return LocalDate.parse(valor.trim(), DATE_FORMATTER);
-        } catch (DateTimeParseException e) {
-            System.err.println("Data inválida: '" + valor + "' — formato esperado: yyyy-MM-dd");
-            return null;
+    public static void salvarEnderecos(String arquivoEnderecos, List<Endereco> enderecos) throws IOException {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivoEnderecos))) {
+            bw.write("endereco_id;logradouro;numero;complemento;bairro;cidade;estado;cep");
+            bw.newLine();
+            for (Endereco e : enderecos) {
+                String line = String.join(";",
+                        e.getId(), e.getLogradouro(), e.getNumero(), e.getComplemento(),
+                        e.getBairro(), e.getCidade(), e.getEstado(), e.getCep()
+                );
+                bw.write(line);
+                bw.newLine();
+            }
         }
     }
 
-    private static BigDecimal parseBigDecimal(String valor) {
-        if (valor == null || valor.trim().isEmpty()) {
-            return BigDecimal.ZERO;
-        }
-        try {
-            return new BigDecimal(valor.trim());
-        } catch (NumberFormatException e) {
-            System.err.println("Valor numérico inválido: '" + valor + "'");
-            return BigDecimal.ZERO;
+    public static void salvarFuncionarios(String arquivoFuncionarios, List<Funcionario> funcionarios) throws IOException {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivoFuncionarios))) {
+            bw.write("matricula;nome;cpf;dataNascimento;cargo;salario;dataContratacao;fk_endereco_id");
+            bw.newLine();
+            for (Funcionario f : funcionarios) {
+                String dataNascimentoStr = f.getDataNascimento() != null ? f.getDataNascimento().format(DATE_FORMATTER) : "";
+                String dataContratacaoStr = f.getDataContratacao() != null ? f.getDataContratacao().format(DATE_FORMATTER) : "";
+
+                String line = String.join(";",
+                        f.getMatricula(), f.getNome(), f.getCpf(),
+                        dataNascimentoStr, f.getCargo(),
+                        f.getSalario().toString(), dataContratacaoStr,
+                        f.getEndereco().getId()
+                );
+                bw.write(line);
+                bw.newLine();
+            }
         }
     }
 }
